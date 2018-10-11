@@ -7,23 +7,29 @@ const questions = [
 let question;
 const qContainer = document.getElementsByClassName('question-container')[0]
 
+function displayQuestionOnClick() {
+  goBtn = document.getElementsByClassName('waves-effect')[0]
+  return goBtn.addEventListener('click', event => {
+    askQuestionThenRemoveQuestion(3000);
+  })
+}
+
 function askQuestionThen(time) {
   question = questions[0]
   appendQuestion(question)
+  toggleTrueAndFalseButtons();
   return new Promise(resolve =>
     setTimeout( () => resolve(question), time)
   )
 }
 
 function removeQuestion() {
-  qContainer.innerHTML = ''
+  toggleTrueAndFalseButtons();
+  qContainer.innerHTML = '';
 }
 
 function askQuestionThenRemoveQuestion(time) {
-  appendQuestion(question)
-  return new Promise(resolve =>
-    setTimeout(() => removeQuestion, time)
-  )
+  return askQuestionThen(time).then(removeQuestion)
 }
 
 function trueAndFalseButtons() {
@@ -40,11 +46,8 @@ function appendQuestion(question) {
   qContainer.innerHTML = question.questionText
 }
 
-function displayQuestionOnClick() {
-  askQuestionThenRemoveQuestion(3000)
-  toggleTrueAndFalseButtons()
-}
+displayQuestionOnClick()
 
-goBtn = document.getElementsByClassName('waves-effect')[0]
-goBtn.addEventListener('click', displayQuestionOnClick)
+
+
 
