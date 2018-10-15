@@ -54,7 +54,7 @@ describe('index', () => {
      });
 
     it('should append the question for 10 seconds and then remove the question when the promise resolves', function(){
-      let resolvingPromise = askQuestionThenRemoveQuestion(1000)
+      let resolvingPromise = askQuestionThenRemoveQuestion(5000)
       expect(questionContainer.innerHTML).to.eq("Lightning never strikes in the same place twice")
       resolvingPromise.then( (result) => {
           expect(questionContainer.innerHTML).to.equal('');
